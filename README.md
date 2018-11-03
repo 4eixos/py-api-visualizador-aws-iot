@@ -1,6 +1,6 @@
 # py-api-visualizadores
 
-api json para conectar al Freeboard
+Ejemplo de api json basada en [bottle.py](https://bottlepy.org) para monitorizar dispositivos de AWS IoT Platform
 
 
 # clase Visualizador
