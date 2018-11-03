@@ -2,7 +2,9 @@ from bottle import hook, route, run, response
 from threading import Thread
 from visualizador import Visualizador
 
-# apanho para poder mutar a variable global
+# variables globales
+# creamolas como arrays 
+#  para poder mutalas dentro dos threads
 lumens =  [0]
 dB =  [0]
 T = [0]
@@ -21,6 +23,7 @@ def threadLumens():
     )
 
     v.loopPlatform(lumens)
+    #v.loop(lumens)
 
 
 # create threads
