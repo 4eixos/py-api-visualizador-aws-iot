@@ -24,7 +24,8 @@ class Visualizador():
             setattr(self, attr_name, kwargs[attr_name])
 
         self.clientId = self.thingName
-        self.groupCA = ""
+        self.groupCA = None
+        self.coreInfo = None
 
         self.configure_logger()
 
@@ -54,7 +55,8 @@ class Visualizador():
         retryCount = Visualizador.MAX_DISCOVERY_RETRIES
         discovered = False
         self.groupCA = None
-        coreInfo = None
+        self.coreInfo = None
+
         while retryCount != 0:
             try:
                 discoveryInfo = discoveryInfoProvider.discover(self.thingName)
@@ -63,8 +65,8 @@ class Visualizador():
         
                 # We only pick the first ca and core info
                 groupId, ca = caList[0]
-                coreInfo = coreList[0]
-                print("Discovered GGC: %s from Group: %s" % (coreInfo.coreThingArn, groupId))
+                self.coreInfo = coreList[0]
+                print("Discovered GGC: %s from Group: %s" % (self.coreInfo.coreThingArn, groupId))
         
                 print("Now we persist the connectivity/identity information...")
                 self.groupCA = Visualizador.GROUP_CA_PATH + groupId + "_CA_" + str(uuid.uuid4()) + ".crt"
@@ -117,7 +119,7 @@ class Visualizador():
         myAWSIoTMQTTClient.onMessage = customOnMessage
         
         connected = False
-        for connectivityInfo in coreInfo.connectivityInfoList:
+        for connectivityInfo in self.coreInfo.connectivityInfoList:
             currentHost = connectivityInfo.host
             currentPort = connectivityInfo.port
             print("Trying to connect to core at %s:%d" % (currentHost, currentPort))
@@ -132,7 +134,7 @@ class Visualizador():
                 print("Error message: %s" % e.message)
         
         if not connected:
-            print("Cannot connect to core %s. Exiting..." % coreInfo.coreThingArn)
+            print("Cannot connect to core %s. Exiting..." % self.coreInfo.coreThingArn)
             sys.exit(-2)
         
         # Successfully connected to the core
