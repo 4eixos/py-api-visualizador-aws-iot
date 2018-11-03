@@ -1,6 +1,6 @@
 # py-api-visualizadores
 
-api json para conectar al Freeboard
+Ejemplo de api json basada en [bottle.py](https://bottlepy.org) para monitorizar dispositivos de AWS IoT Platform
 
 
 # clase Visualizador
@@ -11,12 +11,12 @@ y subscribirse a un topic mqtt de otro dispositivo (siempre que esté habilitada
 
 Para instanciar el objeto es necesario pasar los siguientes parámetros:
 
-    - "host": endpoint AWS IoT
-    - "certificatePath": path al certificado del dispositivo visualizador
-    - "privateKeyPath": path a la parte privada del certificado del visualizador
-    - "rootCAPath": [ca de servidor](https://docs.aws.amazon.com/es_es/iot/latest/developerguide/managing-device-certs.html)
-    - "thingName": nombre del dispositivo visualizador en la plataforma IoT (clientId)
-    - "topic": Topic mqtt al que queremos subscribir el visualizador
+- "host": endpoint AWS IoT
+- "certificatePath": path al certificado del dispositivo visualizador
+- "privateKeyPath": path a la parte privada del certificado del visualizador
+- "rootCAPath": [ca de servidor](https://docs.aws.amazon.com/es_es/iot/latest/developerguide/managing-device-certs.html)
+- "thingName": nombre del dispositivo visualizador en la plataforma IoT (clientId)
+- "topic": Topic mqtt al que queremos subscribir el visualizador
 
 
 ## loop vs loopPlatform
